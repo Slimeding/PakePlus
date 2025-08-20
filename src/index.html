@@ -1,32 +1,377 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <link rel="stylesheet" href="styles.css" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>PakePlus App</title>
-        <script type="module" src="/main.js" defer></script>
-    </head>
+<html lang="zh-CN">
 
-    <body>
-        <main class="container">
-            <h1>Welcome to PakePlus</h1>
-            <form class="row" id="greet-form">
-                <input id="inputValue" placeholder="Enter a something..." />
-            </form>
-            <div class="resultBox">
-                <span>result: </span>
-                <span id="result"></span>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>法律法规导航中心</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="./pic/7569191.png">
+    <style>
+        /* 内联CSS确保离线可用 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #34495e;
+            --success: #2ecc71;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            /* background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            background-attachment: fixed; */
+            background: url(./pic/pic01.jpg) center top no-repeat;
+            ;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .search-box {
+            max-width: 600px;
+            margin: 30px auto 40px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            box-shadow: var(--shadow);
+            padding-left: 50px;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+            font-size: 1.2rem;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card-header h3 {
+            font-size: 1.4rem;
+            margin: 0;
+        }
+
+        .laws-list {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .laws-list ul {
+            list-style: none;
+        }
+
+        .laws-list li {
+            padding: 12px 0;
+            border-bottom: 1px dashed #eee;
+            display: flex;
+            align-items: center;
+        }
+
+        .laws-list li:last-child {
+            border-bottom: none;
+        }
+
+        .law-icon {
+            width: 30px;
+            height: 30px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        .laws-list a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            flex-grow: 1;
+        }
+
+        .laws-list a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 25px;
+            color: rgb(0, 0, 0);
+            font-size: 0.9rem;
+            font-weight: bolder;
+        }
+
+        .highlight {
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .category-count {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 3px 10px;
+            font-size: 0.85rem;
+            margin-left: 10px;
+        }
+
+        .ddzcfwrm {
+            display: inline-block;
+            /* text-align: center;
+             */
+            /* margin-right: 10px; */
+            padding: 50px;
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
+
+        @media (max-width: 768px) {
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 2.2rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 导航上端 -->
+    <div class="container">
+        <header>
+            <h1>法律法规导航中心</h1>
+            <p>全面、权威、便捷的法律法规查阅平台 · 离线可用 · 随时访问</p>
+        </header>
+        <img class="ddzcfwrm" src="./pic/8574863.png" alt="">
+
+        <div class="search-box">
+            <i>🔍</i>
+            <input type="text" placeholder="搜索法律条文、关键词...">
+        </div>
+
+        <div class="categories-grid">
+            <!-- 中华人民共和国治安管理处罚法 -->
+            <div class="category-card">
+                <div class="card-header">
+                    <h3>治安管理处罚法<span class="category-count">2部</span></h3>
+                </div>
+                <div class="laws-list">
+                    <ul>
+                        <li><span class="law-icon">1</span><a target="_blank"
+                                href="./out/za25.html">中华人民共和国治安管理处罚法(2025版)</a></li>
+                        <li><span class="law-icon">2</span><a href="./out/za12.html">中华人民共和国治安管理处罚法(2012版)</a></li>
+                        <!-- <li><span class="law-icon">3</span><a href="election_law.html">中华人民共和国全国人民代表大会和地方各级人民代表大会选举法</a></li>
+                        <li><span class="law-icon">4</span><a href="national_region_law.html">中华人民共和国民族区域自治法</a></li> -->
+                    </ul>
+                </div>
             </div>
-            <div class="invokeBox">
-                <button id="openUrl">open_url_browser</button>
-                <button id="openUrlNew">open_url_new</button>
-                <button id="runCommand">run_command</button>
-                <button id="downloadFile">download_file</button>
-                <button id="getExeDir">get_exe_dir</button>
-                <button id="getEnvVar">get_env_var</button>
-                <button id="findPort">find_port</button>
+
+            <!-- 民法商法 -->
+            <div class="category-card">
+                <div class="card-header" style="background: #27ae60;">
+                    <h3>刑法<span class="category-count">0部</span></h3>
+                </div>
+                <div class="laws-list">
+                    <ul>
+                        <li><span class="law-icon">1</span><a href="civil_code.html">中华人民共和国刑法</a></li>
+                        <li><span class="law-icon">2</span><a href="company_law.html"></a></li>
+                        <!-- <li><span class="law-icon">3</span><a href="contract_law.html">中华人民共和国合同法</a></li>
+                        <li><span class="law-icon">4</span><a href="property_law.html">中华人民共和国物权法</a></li> -->
+                    </ul>
+                </div>
             </div>
-        </main>
-    </body>
+
+            <!-- 行政法 -->
+            <div class="category-card">
+                <div class="card-header" style="background: #d35400;">
+                    <h3>程序规定及其他<span class="category-count">2部</span></h3>
+                </div>
+                <div class="laws-list">
+                    <ul>
+                        <!-- <li><span class="law-icon">1</span><a href="administrative_penalty_law.html">公安机关办理行政案件程序规定</a>
+                        </li>
+                        <li><span class="law-icon">2</span><a href="licensing_law.html">公安机关办理刑事案件程序规定</a></li> -->
+
+
+
+                        <!-- <li><span class="law-icon">3</span><a href="reconsideration_law.html">中华人民共和国行政复议法</a></li>
+                        <li><span class="law-icon">4</span><a href="civil_servant_law.html">中华人民共和国公务员法</a></li> -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 经济法 -->
+            <!-- <div class="category-card">
+                <div class="card-header" style="background: #8e44ad;">
+                    <h3>经济法 <span class="category-count">15部</span></h3>
+                </div>
+                <div class="laws-list">
+                    <ul>
+                        <li><span class="law-icon">1</span><a href="consumer_protection_law.html">中华人民共和国消费者权益保护法</a></li>
+                        <li><span class="law-icon">2</span><a href="anti_monopoly_law.html">中华人民共和国反垄断法</a></li>
+                        <li><span class="law-icon">3</span><a href="tax_collection_law.html">中华人民共和国税收征收管理法</a></li>
+                        <li><span class="law-icon">4</span><a href="banking_law.html">中华人民共和国银行业监督管理法</a></li>
+                    </ul>
+                </div>
+            </div> -->
+
+            <!-- 社会法 -->
+            <!-- <div class="category-card">
+                <div class="card-header" style="background: #16a085;">
+                    <h3>社会法 <span class="category-count">7部</span></h3>
+                </div>
+                <div class="laws-list">
+                    <ul>
+                        <li><span class="law-icon">1</span><a href="labor_law.html">中华人民共和国劳动法</a></li>
+                        <li><span class="law-icon">2</span><a href="social_insurance_law.html">中华人民共和国社会保险法</a></li>
+                        <li><span class="law-icon">3</span><a href="trade_union_law.html">中华人民共和国工会法</a></li>
+                        <li><span class="law-icon">4</span><a href="charity_law.html">中华人民共和国慈善法</a></li>
+                    </ul>
+                </div>
+            </div> -->
+
+            <!-- 刑法 -->
+            <!-- <div class="category-card">
+                <div class="card-header" style="background: #c0392b;">
+                    <h3>刑法 <span class="category-count">3部</span></h3>
+                </div>
+                <div class="laws-list">
+                    <ul>
+                        <li><span class="law-icon">1</span><a href="criminal_law.html">中华人民共和国刑法</a></li>
+                        <li><span class="law-icon">2</span><a href="amendment.html">刑法修正案（十一）</a></li>
+                    </ul>
+                </div>
+            </div> -->
+
+            <!-- 诉讼与非诉讼程序法 -->
+            <!-- <div class="category-card">
+                <div class="card-header" style="background: #2980b9;">
+                    <h3>诉讼与非诉讼程序法 <span class="category-count">6部</span></h3>
+                </div>
+                <div class="laws-list">
+                    <ul>
+                        <li><span class="law-icon">1</span><a href="criminal_procedure_law.html">中华人民共和国刑事诉讼法</a></li>
+                        <li><span class="law-icon">2</span><a href="civil_procedure_law.html">中华人民共和国民事诉讼法</a></li>
+                        <li><span class="law-icon">3</span><a href="administrative_litigation_law.html">中华人民共和国行政诉讼法</a></li>
+                        <li><span class="law-icon">4</span><a href="arbitration_law.html">中华人民共和国仲裁法</a></li>
+                    </ul>
+                </div>
+            </div> -->
+        </div>
+
+        <div class="footer">
+            <p>© 2026 法律法规导航系统 | 共收录 <span class="highlight">60</span> 部现行有效法律法规</p>
+            <p><br></p>
+            <p>离线版本 · 最后更新: 2026年01月01日</p>
+        </div>
+    </div>
+
+    <script>
+        // 简单的搜索功能（前端实现）
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchInput = document.querySelector('.search-box input');
+            const lawItems = document.querySelectorAll('.laws-list a');
+
+            searchInput.addEventListener('input', function () {
+                const searchTerm = this.value.toLowerCase();
+
+                lawItems.forEach(item => {
+                    const lawText = item.textContent.toLowerCase();
+                    const listItem = item.parentElement;
+
+                    if (lawText.includes(searchTerm)) {
+                        listItem.style.display = 'flex';
+                    } else {
+                        listItem.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
 </html>
