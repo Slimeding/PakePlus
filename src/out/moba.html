@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv=Content-Type content="text/html; charset=gb2312"> -->
+    <meta name=ProgId content=Word.Document>
+    <link rel="icon" type="image/png" href="../pic/7569191.png">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+
+<body>
+    <header class="search-header">
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="输入搜索内容...">
+            <button class="search-button" id="search-button">搜索</button>
+        </div>
+
+        <div class="nav-container">
+            <button class="nav-button" id="prev-button" title="上一个匹配项">▲</button>
+            <button class="nav-button" id="next-button" title="下一个匹配项">▼</button>
+        </div>
+
+        <div id="results-info">
+            <span id="current-match">0</span>/<span id="total-matches">0</span>
+        </div>
+
+        <div class="options-container">
+            <div class="option-group">
+                <input type="checkbox" id="number-match">
+                <label for="number-match" class="option-label">智能数字匹配</label>
+            </div>
+
+            <div class="option-group">
+                <input type="checkbox" id="clause-match" checked>
+                <label for="clause-match" class="option-label">条数匹配</label>
+            </div>
+        </div>
+
+        <button class="action-button" id="clear-button">清除</button>
+
+        <div class="no-results-message" id="no-results-message">
+            没有找到匹配的内容
+        </div>
+    </header>
+
+    <!-- 内容区域 -->
+    <main class="content-container">
+
+    </main>
+
+    <script src="../js/find.js"></script>
+</body>
+
+</html>
